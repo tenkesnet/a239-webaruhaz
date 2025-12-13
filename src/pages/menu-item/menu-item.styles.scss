@@ -1,5 +1,5 @@
-.category-container {
-  max-width: 30%;
+.menu-item {
+  min-width: 30%;
   height: 240px;
   flex: 1 1 auto;
   display: flex;
@@ -14,10 +14,10 @@
 
     & .background-image {
       transform: scale(1.1);
-      transition: transform 2s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+      transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
     }
 
-    & .category-body-container {
+    & .content {
       opacity: 0.9;
     }
   }
@@ -41,7 +41,7 @@
     background-position: center;
   }
 
-  .category-body-container {
+  .content {
     height: 90px;
     padding: 0 25px;
     display: flex;
@@ -53,14 +53,14 @@
     opacity: 0.7;
     position: absolute;
 
-    h2 {
+    .title {
       font-weight: bold;
       margin: 0 6px 0;
       font-size: 22px;
       color: #4a4a4a;
     }
 
-    p {
+    .subtitle {
       font-weight: lighter;
       font-size: 16px;
     }
