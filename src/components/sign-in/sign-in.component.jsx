@@ -2,7 +2,8 @@ import React from 'react';
 
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
-
+import { signInWithGoogle, auth } from '../../firebase/firebase.utils';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import './sign-in.styles.scss';
 
 class SignIn extends React.Component {
@@ -15,11 +16,22 @@ class SignIn extends React.Component {
     };
   }
 
-  handleSubmit = event => {
-    event.preventDefault();
+  handleSubmit = async event => {
+  event.preventDefault();
 
+  const { email, password } = this.state;
+
+  try {
+    // ✅ ÚJ MODULÁRIS SZINTAKTIKA:
+    await signInWithEmailAndPassword(auth, email, password);
+    
+    // Siker esetén ürítjük a mezőket
     this.setState({ email: '', password: '' });
-  };
+  } catch (error) {
+    // Érdemes lehet a felhasználónak is jelezni, ha rossz a jelszó
+    console.error("Hiba a bejelentkezés során:", error.message);
+  }
+};
 
   handleChange = event => {
     const { value, name } = event.target;
@@ -50,7 +62,12 @@ class SignIn extends React.Component {
             label='password'
             required
           />
-          <CustomButton type='submit'> Sign in </CustomButton>
+           <div className='buttons'>
+            <CustomButton type='submit'> Sign in </CustomButton>
+            <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
+              Sign in with Google
+            </CustomButton>
+          </div>
         </form>
       </div>
     );
