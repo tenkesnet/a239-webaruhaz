@@ -1,15 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth , GoogleAuthProvider, signInWithPopup} from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
-
-const config = {
-    apiKey: "AIzaSyDQfVhShXXnV_mgI_wcNJlXs4dJVjlU1sI",
-    authDomain: "pallas-webshop.firebaseapp.com",
-    projectId: "pallas-webshop",
-    storageBucket: "pallas-webshop.firebasestorage.app",
-    messagingSenderId: "440518287724",
-    appId: "1:440518287724:web:8fdf28230e71439486d349"
-};
+import config from "./firebase.config";
 
 const app = initializeApp(config);
 export const auth = getAuth(app);

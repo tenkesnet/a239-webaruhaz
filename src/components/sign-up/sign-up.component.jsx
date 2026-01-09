@@ -45,7 +45,14 @@ class SignUp extends React.Component {
         confirmPassword: ''
       });
     } catch (error) {
-      console.error(error);
+      this.setState({
+        displayName: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
+      });
+      auth.signOut();
+      alert(error.message);
     }
   };
 

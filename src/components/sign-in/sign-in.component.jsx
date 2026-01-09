@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { use } from 'react';
 
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
-import { signInWithGoogle, auth } from '../../firebase/firebase.utils';
+import { signInWithGoogle, auth, createUserProfileDocument } from '../../firebase/firebase.utils';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import './sign-in.styles.scss';
 
@@ -23,8 +23,9 @@ class SignIn extends React.Component {
 
   try {
     // ✅ ÚJ MODULÁRIS SZINTAKTIKA:
-    await signInWithEmailAndPassword(auth, email, password);
-    
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const userRef = await createUserProfileDocument(userCredential.user);
+    console.log("Bejelentkezett felhasználó:", userCredential.user);
     // Siker esetén ürítjük a mezőket
     this.setState({ email: '', password: '' });
   } catch (error) {
