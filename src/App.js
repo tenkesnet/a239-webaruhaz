@@ -4,16 +4,18 @@ import { connect } from 'react-redux';
 // Fontos: Az onSnapshot-ot a firestore-ból kell importálni
 import { onSnapshot } from 'firebase/firestore'; 
 import { auth, createUserProfileDocument } from './firebase/firebase.utils.js';
-
+import { createStructuredSelector } from 'reselect';
 import './App.css';
 import Header from './components/header/header.component.jsx';
 import HomePage from './pages/homepage/home-page.component.jsx';
 import ShopPage from './pages/shop/shop.component.jsx';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component.jsx';
 import { setCurrentUser } from './redux/user/user.actions';
+import CheckoutPage from './pages/checkout/checkout.component';
+
+import { selectCurrentUser } from './redux/user/user.selectors';
 
 class App extends React.Component {
-  
 
   unsubscribeFromAuth = null;
 
@@ -51,6 +53,7 @@ class App extends React.Component {
         <Routes>
           <Route exact path='/' element={<HomePage />} />
           <Route path='/shop' element={<ShopPage />} />
+          <Route exact path='/checkout' element={<CheckoutPage />} />
           <Route
             path='/signin'
             element={
@@ -67,8 +70,8 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser
 });
 
 const mapDispatchToProps = dispatch => ({
